@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gql-optimizer"
-version = "1.0.0"
+version = "1.0.1"
 description = "GraphQL Query Optimizer for SQLAlchemy - Optimize your GraphQL queries with field selection, caching, and DataLoader support"
 readme = "README.md"
 license = {text = "MIT"}
@@ -12,7 +12,7 @@ authors = [
     {name = "Duhan Günsel", email = "gnsl.duhan.07@gmail.com"}
 ]
 maintainers = [
-    {name = "Duhan G", email = "gnsl.duhan.07@gmail.com"}
+    {name = "Duhan Günsel", email = "gnsl.duhan.07@gmail.com"}
 ]
 keywords = [
     "graphql",
@@ -40,31 +40,31 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Framework :: AsyncIO",
     "Topic :: Database",
-    "Topic :: Internet :: WWW/HTTP :: GraphQL",
+    "Topic :: Internet :: WWW/HTTP",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed"
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "sqlalchemy>=1.4.0",
+    "sqlalchemy>=2.0.0",
 ]
 
 [project.optional-dependencies]
 # GraphQL framework support
 strawberry = ["strawberry-graphql>=0.200.0"]
-graphene = ["graphene>=3.0.0", "graphene-sqlalchemy>=2.3.0"]
+graphene = ["graphene>=3.0.0"]
 ariadne = ["ariadne>=0.20.0"]
 
 # Async support
-async = ["sqlalchemy[asyncio]>=2.0.0", "aiosqlite>=0.19.0"]
+async = ["aiosqlite>=0.19.0", "greenlet>=3.0.0"]
 
-# All extras
+# All GraphQL frameworks + async
 all = [
     "strawberry-graphql>=0.200.0",
     "graphene>=3.0.0",
-    "graphene-sqlalchemy>=2.3.0",
     "ariadne>=0.20.0",
-    "sqlalchemy[asyncio]>=2.0.0",
+    "aiosqlite>=0.19.0",
+    "greenlet>=3.0.0",
 ]
 
 # Development
@@ -76,6 +76,8 @@ dev = [
     "isort>=5.12.0",
     "mypy>=1.0.0",
     "ruff>=0.1.0",
+    "build>=1.0.0",
+    "twine>=5.0.0",
 ]
 
 # Documentation
@@ -86,11 +88,11 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/graphql-query-optimizer"
-Documentation = "https://github.com/yourusername/graphql-query-optimizer#readme"
-Repository = "https://github.com/yourusername/graphql-query-optimizer.git"
-Issues = "https://github.com/yourusername/graphql-query-optimizer/issues"
-Changelog = "https://github.com/yourusername/graphql-query-optimizer/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/Duhan07/graphql-query-optimizer"
+Documentation = "https://github.com/Duhan07/graphql-query-optimizer#readme"
+Repository = "https://github.com/Duhan07/graphql-query-optimizer.git"
+Issues = "https://github.com/Duhan07/graphql-query-optimizer/issues"
+Changelog = "https://github.com/Duhan07/graphql-query-optimizer/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/gql_optimizer"]

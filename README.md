@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/gql-optimizer.svg)](https://badge.fury.io/py/gql-optimizer)
 [![Python versions](https://img.shields.io/pypi/pyversions/gql-optimizer.svg)](https://pypi.org/project/gql-optimizer/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://github.com/yourusername/graphql-query-optimizer/workflows/tests/badge.svg)](https://github.com/yourusername/graphql-query-optimizer/actions)
+[![Tests](https://github.com/Duhan07/graphql-query-optimizer/workflows/tests/badge.svg)](https://github.com/Duhan07/graphql-query-optimizer/actions)
 
 A powerful library for optimizing GraphQL queries with SQLAlchemy. Automatically selects only the requested fields, implements caching, and provides DataLoader for N+1 problem prevention.
 
@@ -18,22 +18,61 @@ A powerful library for optimizing GraphQL queries with SQLAlchemy. Automatically
 
 ## Installation
 
+### Using pip
+
 ```bash
 # Basic installation
 pip install gql-optimizer
 
-# With Strawberry support
-pip install gql-optimizer[strawberry]
+# With Strawberry support (recommended)
+pip install "gql-optimizer[strawberry]"
 
 # With Graphene support
-pip install gql-optimizer[graphene]
+pip install "gql-optimizer[graphene]"
+
+# With Ariadne support
+pip install "gql-optimizer[ariadne]"
 
 # With async support
-pip install gql-optimizer[async]
+pip install "gql-optimizer[async]"
 
-# All extras
-pip install gql-optimizer[all]
+# All extras (all frameworks + async)
+pip install "gql-optimizer[all]"
 ```
+
+### Using uv (Recommended)
+
+```bash
+# Basic installation
+uv add gql-optimizer
+
+# With Strawberry support (recommended)
+uv add "gql-optimizer[strawberry]"
+
+# With Graphene support
+uv add "gql-optimizer[graphene]"
+
+# With Ariadne support
+uv add "gql-optimizer[ariadne]"
+
+# With async support
+uv add "gql-optimizer[async]"
+
+# All extras (all frameworks + async)
+uv add "gql-optimizer[all]"
+```
+
+### Available Extras
+
+| Extra | Description | Includes |
+|-------|-------------|----------|
+| `strawberry` | Strawberry GraphQL support | strawberry-graphql |
+| `graphene` | Graphene support | graphene |
+| `ariadne` | Ariadne support | ariadne |
+| `async` | Async SQLAlchemy support | aiosqlite, greenlet |
+| `all` | All frameworks + async | All above |
+| `dev` | Development tools | pytest, black, mypy, build, twine |
+| `docs` | Documentation | mkdocs, mkdocs-material |
 
 ## Quick Start
 
@@ -43,6 +82,7 @@ pip install gql-optimizer[all]
 from gql_optimizer import QueryOptimizer
 import strawberry
 from strawberry.types import Info
+from typing import List
 
 @strawberry.type
 class Query:
@@ -201,6 +241,18 @@ couriers = loader.load_many(CourierModel, ["c1", "c2", "c3"])
 order = loader.load(OrderModel, "ORD-123", key_field="order_id")
 ```
 
+### AsyncDataLoader
+
+```python
+loader = AsyncDataLoader(async_session)
+
+# Single load (async)
+courier = await loader.load(CourierModel, "courier_123")
+
+# Batch load (async)
+couriers = await loader.load_many(CourierModel, ["c1", "c2", "c3"])
+```
+
 ### QueryCache
 
 ```python
@@ -318,9 +370,11 @@ def get_orders(info: Info, session: Session) -> List[Order]:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+### Using pip
+
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/graphql-query-optimizer.git
+git clone https://github.com/Duhan07/graphql-query-optimizer.git
 cd graphql-query-optimizer
 
 # Install development dependencies
@@ -337,6 +391,38 @@ isort src tests
 mypy src
 ```
 
+### Using uv (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/Duhan07/graphql-query-optimizer.git
+cd graphql-query-optimizer
+
+# Install development dependencies
+uv sync --extra dev
+
+# Run tests
+uv run pytest
+
+# Format code
+uv run black src tests
+uv run isort src tests
+
+# Type check
+uv run mypy src
+
+# Build package
+uv run python -m build
+
+# Upload to PyPI
+uv run twine upload dist/*
+```
+
+## Requirements
+
+- Python >= 3.9
+- SQLAlchemy >= 2.0.0
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
@@ -346,5 +432,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 
 ## Credits
+
+Created by [Duhan Günsel](https://github.com/Duhan07).
 
 Inspired by the need for efficient GraphQL + SQLAlchemy integration in production applications.

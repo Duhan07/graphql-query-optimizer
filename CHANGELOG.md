@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2024-12-31
+## [1.0.0] - 2025-01-01
 
 ### Added
 - Initial release
@@ -34,9 +34,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cache invalidation by model
 - Cache statistics tracking
 
-## [0.1.0] - 2024-12-01
+### Requirements
+- Python >= 3.9
+- SQLAlchemy >= 2.0.0
 
-### Added
-- Initial development version
-- Basic QueryOptimizer implementation
-- Simple caching mechanism
+### Optional Dependencies
+- strawberry-graphql >= 0.200.0 (for Strawberry support)
+- graphene >= 3.0.0 (for Graphene support)
+- ariadne >= 0.20.0 (for Ariadne support)
+- aiosqlite >= 0.19.0 (for async support)

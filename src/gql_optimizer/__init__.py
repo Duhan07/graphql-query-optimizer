@@ -39,15 +39,15 @@ With DataLoader:
     >>>     return orders
 
 Documentation:
-    https://github.com/yourusername/graphql-query-optimizer
+    https://github.com/Duhan07/graphql-query-optimizer
 
 License:
     MIT License
 """
 
 __version__ = "1.0.0"
-__author__ = "Your Name"
-__email__ = "your.email@example.com"
+__author__ = "Duhan Günsel"
+__email__ = "gnsl.duhan.07@gmail.com"
 
 # Core optimizer
 # Cache
