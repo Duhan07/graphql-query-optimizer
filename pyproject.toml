@@ -1,0 +1,179 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gql-optimizer"
+version = "1.0.0"
+description = "GraphQL Query Optimizer for SQLAlchemy - Optimize your GraphQL queries with field selection, caching, and DataLoader support"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Duhan Günsel", email = "gnsl.duhan.07@gmail.com"}
+]
+maintainers = [
+    {name = "Duhan G", email = "gnsl.duhan.07@gmail.com"}
+]
+keywords = [
+    "graphql",
+    "sqlalchemy",
+    "optimization",
+    "query",
+    "strawberry",
+    "graphene",
+    "ariadne",
+    "dataloader",
+    "cache",
+    "n+1",
+    "performance"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Framework :: AsyncIO",
+    "Topic :: Database",
+    "Topic :: Internet :: WWW/HTTP :: GraphQL",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed"
+]
+requires-python = ">=3.9"
+dependencies = [
+    "sqlalchemy>=1.4.0",
+]
+
+[project.optional-dependencies]
+# GraphQL framework support
+strawberry = ["strawberry-graphql>=0.200.0"]
+graphene = ["graphene>=3.0.0", "graphene-sqlalchemy>=2.3.0"]
+ariadne = ["ariadne>=0.20.0"]
+
+# Async support
+async = ["sqlalchemy[asyncio]>=2.0.0", "aiosqlite>=0.19.0"]
+
+# All extras
+all = [
+    "strawberry-graphql>=0.200.0",
+    "graphene>=3.0.0",
+    "graphene-sqlalchemy>=2.3.0",
+    "ariadne>=0.20.0",
+    "sqlalchemy[asyncio]>=2.0.0",
+]
+
+# Development
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.0.0",
+    "ruff>=0.1.0",
+]
+
+# Documentation
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0",
+    "mkdocstrings[python]>=0.24.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/graphql-query-optimizer"
+Documentation = "https://github.com/yourusername/graphql-query-optimizer#readme"
+Repository = "https://github.com/yourusername/graphql-query-optimizer.git"
+Issues = "https://github.com/yourusername/graphql-query-optimizer/issues"
+Changelog = "https://github.com/yourusername/graphql-query-optimizer/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gql_optimizer"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+    "/CHANGELOG.md",
+]
+
+# ==================== TOOLS ====================
+
+[tool.black]
+line-length = 88
+target-version = ['py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hatch
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["gql_optimizer"]
+skip = [".venv", "venv", "build", "dist"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+exclude = [
+    "tests",
+    "build",
+    "dist",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-v --cov=gql_optimizer --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["src/gql_optimizer"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+]
